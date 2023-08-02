@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model University {
+    un_id       String @id @default(cuid())
+    external_id String @unique
+    name        String
+
+    campus_lat Float
+    campus_lon Float
+    photo_url  String
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+
+    housingUnits HousingUnit[]
+}
+
+model HousingUnit {
+    hu_id       String @id @default(cuid())
+    external_id String @unique
+
+    hu_un_id String
+
+    photo_url String
+
+    address String
+    lat     Float
+    lon     Float
+
+    description            String
+    campus_distance_meters Float
+    bedrooms               Int
+    price                  Float
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+
+    housingUnitSubmissions HousingUnitSubmission[]
+
+    university University @relation(fields: [hu_un_id], references: [un_id])
+}
+
+model HousingUnitSubmission {
+    husu_id String @id @default(cuid())
+
+    husu_hu_id String
+
+    name  String
+    email String
+
+    createdAt DateTime  @default(now())
+    deletedAt DateTime?
+
+    housingUnit HousingUnit @relation(fields: [husu_hu_id], references: [hu_id])
+}
