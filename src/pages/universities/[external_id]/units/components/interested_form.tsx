@@ -75,6 +75,7 @@ export default function InterestedModal(props: InterestedModalProps) {
                     submitText="Submit!">
                     <FormInput placeholder="Name" onChange={handleNameChange}></FormInput>
                     <br />
+                    <br />
                     <FormInput placeholder="Email" onChange={handleEmailChange}></FormInput>
                     {emailValidationError &&
                         <p className="text-red-500">Please enter a valid email</p>

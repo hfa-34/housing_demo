@@ -16,7 +16,7 @@ export default function FormInput(props: FormInputProps) {
     return (
         <>
             <input
-                className="w-40 p-3"
+                className="w-40 p-3 border-2"
                 type="text"
                 placeholder={props.placeholder}
                 onChange={handleInputOnChange} />
